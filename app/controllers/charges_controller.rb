@@ -42,4 +42,5 @@ class ChargesController < ApplicationController
     flash[:alert] = "You are now a standard member."
     redirect_to edit_user_registration_path
   end
+
 end

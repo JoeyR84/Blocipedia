@@ -40,6 +40,9 @@
 
 <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
 <% if current_user.premium? %>
-  <p>Unhappy with premium? <%= button_to "Downgrade my account", downgrade_charges_path, data: { confirm: "Are you sure?" }, method: :delete %></p>
+  <p>Unhappy with premium? <%= button_to "Downgrade my account", downgrade_charges_path, data: { confirm: "Are you sure? Your private wikis will become public!" }, method: :delete %></p>
+<% end %>
+<% if current_user.standard? %>
+  <p>Upgrade to premium! <%= button_to "Upgrade my account", new_charge_path, method: :get %></p>
 <% end %>
 <%= link_to "Back", :back %>

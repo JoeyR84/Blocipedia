@@ -15,6 +15,7 @@ class WikisController < ApplicationController
     @wiki = Wiki.new
     @wiki.title = params[:wiki][:title]
     @wiki.body = params[:wiki][:body]
+    @wiki.private = params[:wiki][:private]
 
     if @wiki.save
       flash[:notice] = "Wiki was saved."
@@ -41,6 +42,7 @@ class WikisController < ApplicationController
     @wiki = Wiki.find(params[:id])
     @wiki.title = params[:wiki][:title]
     @wiki.body = params[:wiki][:body]
+    @wiki.private = params[:wiki][:private]
 
     if @wiki.save
       flash[:notice] = "Wiki was updated."
@@ -48,7 +50,8 @@ class WikisController < ApplicationController
     else
       flash.now[:alert] = "There was an error saving the wiki. Please try again."
       render :edit
-    end  end
+    end
+  end
 
   def edit
     @wiki = Wiki.find(params[:id])
