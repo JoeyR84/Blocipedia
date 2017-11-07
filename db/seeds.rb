@@ -12,7 +12,8 @@ users = User.all
 15.times do
   Wiki.create!(
     title: Faker::RickAndMorty.quote,
-    body:  Faker::Markdown.inline_code
+    body:  Faker::Markdown.inline_code,
+    user: users.sample
   )
 end
 wikis = Wiki.all
@@ -22,6 +23,7 @@ wikis = Wiki.all
   Wiki.create!(
     title: Faker::StarWars.quote,
     body:  Faker::Hipster.paragraphs(1),
+    user: users.sample,
     private: true
   )
 end

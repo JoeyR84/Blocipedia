@@ -8,7 +8,12 @@ Rails.application.routes.draw do
 
   resources :wikis
 
-  devise_for :users
+  devise_for :users do
+    collection do
+      put :collaborate
+    end
+  end
+
 
   get 'about' => 'welcome#about'
 

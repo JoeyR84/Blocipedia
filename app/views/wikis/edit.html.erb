@@ -12,12 +12,26 @@
         <%= f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter wiki body" %>
       </div>
       <% if current_user.admin? || current_user.premium? %>
+          <table>
+            <tr>
+              <th></th>
+              <th>User</th>
+              <th>Collaborating?</th>
+            </tr>
+            <% @users.each do |user| %>
+            <tr>
+              <td><%= check_box_tag "user_ids[]", user.id, @wiki.collaborating_users.include?(user) %>
+              <td><%= user.email %></td>
+              <!-- <td><%= user.collaborators ? "Yes" : "No" %></td> -->
+            <% end %>
+          </table>
         <div class="form-group">
           <%= f.label :private, class: 'checkbox' do %>
             <%= f.check_box :private %> Private wiki
           <% end %>
         </div>
       <% end %>
+
       <div class="form-group">
         <%= f.submit "Save", class: 'btn btn-success' %>
       </div>

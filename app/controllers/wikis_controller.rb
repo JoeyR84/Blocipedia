@@ -1,6 +1,6 @@
 class WikisController < ApplicationController
   def index
-    @wikis = Wiki.all
+    @wikis = policy_scope(Wiki)
   end
 
   def show
@@ -12,10 +12,11 @@ class WikisController < ApplicationController
   end
 
   def create
-    @wiki = Wiki.new
+    @wiki = current_user.wikis.new
     @wiki.title = params[:wiki][:title]
     @wiki.body = params[:wiki][:body]
     @wiki.private = params[:wiki][:private]
+    @wiki.collaborating_users = User.find(params[:user_ids])
 
     if @wiki.save
       flash[:notice] = "Wiki was saved."
@@ -44,6 +45,8 @@ class WikisController < ApplicationController
     @wiki.body = params[:wiki][:body]
     @wiki.private = params[:wiki][:private]
 
+    @wiki.collaborating_users = User.find(params[:user_ids])
+
     if @wiki.save
       flash[:notice] = "Wiki was updated."
       redirect_to @wiki
@@ -55,5 +58,6 @@ class WikisController < ApplicationController
 
   def edit
     @wiki = Wiki.find(params[:id])
+    @users = User.all
   end
 end
